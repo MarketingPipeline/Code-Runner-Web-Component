@@ -1,16 +1,37 @@
-<pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">CPP</div>
+<html><head><link rel="stylesheet" href="https://unpkg.com/@primer/css/dist/primer.css">
+<style>
 
-<div class="code-knack-ctrl">
+.markdown-body h2{
+border-bottom:none;
+}  
+</style>
+<script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component/dist/code-runner-wc.js" defer></script> </head><body><div class="color-bg-canvas-inset pb-6">
+  <header class="container-lg mx-auto p-responsive d-flex flex-items-center flex-wrap flex-md-nowrap pt-3 pb-6">
+   
 
-<button class="ck-button run-button" id="fetchdata"><img src="./lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
+<div class="container-lg mx-auto py-6 p-responsive">
 
-<button class="ck-button copy-button"><img src="./lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
+      <h1>Code Runner Web Component</h1>
+      <p>A web component that allows you to run high level programming languages on your website via the public <a href="https://github.com/engineer-man/piston#Public-API">Piston API</a> </p>
+      <p>A web component made by <a href="https://github.com/MarketingPipeline">@MarketingPipeline</a>. Source code is available on <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component">GitHub</a>. License can be found <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component/blob/main/LICENSE">here</a>.</p>
+
+  <hr>
   
-</div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">#include "cstdio"
-int main() {
-    printf("Hello World\n");
-    return 0;
-}
-        </div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Hello<br></pre></div></div></pre>
+  <div class="markdown-body">
+   <h2 id="exampleandusage">Examples</h2>
+     <blockquote>Note: You can click and edit the code examples!</blockquote>
+    
+      <h3>Pre-defined Code</h3>
+    
+    <code-runner language="Python" version="3">print('hello world')</code-runner>
+    
+      <h3>Undefined Code</h3>
+   
+    <code-runner language="Python" version="3"></code-runner>
+    
+  </div>
+</div>
 
 
+
+</header></div></body></html>
