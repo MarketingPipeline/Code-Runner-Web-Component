@@ -1,18 +1,24 @@
+/**!
+ * @license Run-Code-Web-Component - A web-component to run code examples (like Python, C++ & more) with ease on your website
+ * LICENSED UNDER GPL-3.0 LICENSE
+ * MORE INFO CAN BE FOUND AT https://github.com/MarketingPipeline/Run-Code-Web-Component/
+ */
+
 
 class CodeRunner extends HTMLElement {
-  constructor() {
-    super();
-   
-  }
-  
-  connectedCallback() {
-    
-    // will be used to set language type to use and names of languages 
-    const language = this.getAttribute('language');
-    
-    const version = this.getAttribute('version');
-    
-    const styling = `<style>
+	constructor() {
+		super();
+
+	}
+
+	connectedCallback() {
+
+		// will be used to set language type to use and names of languages 
+		const language = this.getAttribute('language');
+
+		const version = this.getAttribute('version');
+
+		const styling = `<style>
     
     /*compress*/
     .code-knack-playground {
@@ -157,17 +163,14 @@ class CodeRunner extends HTMLElement {
 	 justify-content: center;
 	 background: rgba(0, 0, 0, 0.4);
 }
-
 /*endcompress*/
  </style>
-
  `
-    
-    if (!language || !version){
-     return this.innerHTML = `${styling}   <!--compress-->  <div>
+
+		if (!language || !version) {
+			return this.innerHTML = `${styling}   <!--compress-->  <div>
   
 <pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground "><div class="code-knack-pane"><div class="code-knack-title">Error!</div>
-
   
 </div><div id="codetorun" class="code-knack-text" style="/* display: none; */">Error: Required HTML Attributes Missing For Web Component ...
         </div>
@@ -176,21 +179,17 @@ class CodeRunner extends HTMLElement {
       </div>
       <!--endcompress-->
       `
-    }
-    
-    this.innerHTML = ` ${styling}
+		}
 
+		this.innerHTML = ` ${styling}
     
     <!--compress-->
     
-    <div data-scriptor-btn language=${language} version=${version}>
+    <div code-runner-component language=${language} version=${version}>
   
 <pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">${language}</div>
-
 <div class="code-knack-ctrl">
-
 <button class="ck-button run-button" run-code-button><img src="./lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
-
 <button class="ck-button copy-button"><img src="./lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
   
 </div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}
@@ -200,7 +199,7 @@ class CodeRunner extends HTMLElement {
       
       <!--endcompress-->
     `;
-  }
+	}
 }
 
 window.customElements.define('run-code', CodeRunner);
@@ -209,58 +208,55 @@ window.customElements.define('run-code', CodeRunner);
 
 // Function To Call API to run code inside the web-component
 
-   // gets data from API and sets the content of #result div
+// gets data from API and sets the content of #result div
 async function getData(html_element) {
- 
-  console.log(html_element.querySelector("#output_section"))
-  // display the output / results block
-  const result_section =  html_element.querySelector("#output_section")
-   result_section.style.display = "block";
-  
- 
-  
-  
-  try {
-    
-    const res = await fetch("https://emkc.org/api/v2/piston/execute", {
-  method: 'POST',
-  body:  JSON.stringify({
-            "language": html_element.getAttribute("language"),
-            "version": html_element.getAttribute("version"),
-            "files": [
-                {
-                    "content": html_element.querySelector("#codetorun").innerText
-                }
-            ]
-        }
-    ),
 
-});
-    const jsonResult = await res.json();
-    console.log(jsonResult)
-     // if message - code error
-    if (jsonResult.message){
-        html_element.querySelector("#result").innerText = JSON.stringify(`Error ${jsonResult.message}`)
-    } else {
-    html_element.querySelector("#result").innerText =  jsonResult.run.output
-    }
-    
-  } 
-   // there was a network error  or etc... 
-  catch (error) {
-    console.log(error.message)
-     html_element.querySelector("#result").innerText = error.message;
-  }
+	console.log(html_element.querySelector("#output_section"))
+	// display the output / results block
+	const result_section = html_element.querySelector("#output_section")
+	result_section.style.display = "block";
+
+
+
+
+	try {
+
+		const res = await fetch("https://emkc.org/api/v2/piston/execute", {
+			method: 'POST',
+			body: JSON.stringify({
+				"language": html_element.getAttribute("language"),
+				"version": html_element.getAttribute("version"),
+				"files": [{
+					"content": html_element.querySelector("#codetorun").innerText
+				}]
+			}),
+
+		});
+		const jsonResult = await res.json();
+		console.log(jsonResult)
+		// if message - code error
+		if (jsonResult.message) {
+			html_element.querySelector("#result").innerText = JSON.stringify(`Error ${jsonResult.message}`)
+		} else {
+			html_element.querySelector("#result").innerText = jsonResult.run.output
+		}
+
+	}
+	// there was a network error  or etc... 
+	catch (error) {
+		console.log(error.message)
+		html_element.querySelector("#result").innerText = error.message;
+	}
 }
 
 
 
- /// Handle all button clicks for WC
+/// Handle all button clicks for WC
 
-const web_compontents = document.querySelectorAll('[data-scriptor-btn]');
+const web_compontents = document.querySelectorAll('[code-runner-component]');
 
- web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ run-code-button]').addEventListener('click', (e) => handleClick(web_compontent)));
+web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ run-code-button]').addEventListener('click', (e) => handleClick(web_compontent)));
 
-function handleClick(button){
-  getData(button)
+function handleClick(button) {
+	getData(button)
 }
