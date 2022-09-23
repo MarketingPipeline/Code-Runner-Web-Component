@@ -11,7 +11,7 @@ class CodeRunner extends HTMLElement {
     const language = this.getAttribute('language');
     
     const version = this.getAttribute('version');
-    /// CSS for component 
+    
     const styling = `<style>
     .code-knack-playground {
 	 position: relative;
@@ -231,7 +231,7 @@ async function getData(html_element) {
     if (jsonResult.message){
          result.innerText = JSON.stringify(`Error ${jsonResult.message}`)
     } else {
-    result.innerText = JSON.stringify(jsonResult.run.output)
+    result.innerText =  jsonResult.run.output
     }
     
   } 
