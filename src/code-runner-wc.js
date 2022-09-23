@@ -1,3 +1,4 @@
+let CopyToClipboard_HTML_Mask = "display:none;"
 class CodeRunner extends HTMLElement {
 	constructor() {
 		super();
@@ -181,12 +182,12 @@ class CodeRunner extends HTMLElement {
     <div code-runner-component language=${language} version=${version}>
   
 <pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">${language}</div>
+  <div class="code-knack-mask">Copied to the clipboard.</div>
 <div class="code-knack-ctrl">
-<button class="ck-button run-button" code-runner-button><img src="./lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
-<button class="ck-button copy-button"><img src="./lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
+<button class="ck-button run-button" code-runner-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
+<button class="ck-button copy-button" code-runner-copy-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
   
-</div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}
-        </div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
+</div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}</div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
       </div>
       </div>
       
@@ -252,4 +253,22 @@ web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code
 
 function handleClick(button) {
 	getData(button)
+}
+
+
+
+/// handle copy click
+
+web_compontents.forEach((web_compontent) => web_compontent.querySelector('[code-runner-copy-button]').addEventListener('click', (e) => handleCopyBtnClick(web_compontent)));
+
+function handleCopyBtnClick(html_element) {
+  
+   navigator.clipboard.writeText(html_element.querySelector("#codetorun").innerText)
+  /// Set Copied To Clipboard Visible
+  html_element.querySelector(".code-knack-mask").style.display = "flex"
+   // then hide it after X seconds.. 
+  setTimeout(() => {
+   html_element.querySelector(".code-knack-mask").style.display = "none";
+}, "3000")
+
 }
