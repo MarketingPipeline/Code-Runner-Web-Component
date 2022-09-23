@@ -1,4 +1,3 @@
-let CopyToClipboard_HTML_Mask = "display:none;"
 class CodeRunner extends HTMLElement {
 	constructor() {
 		super();
