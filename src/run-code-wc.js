@@ -13,6 +13,8 @@ class CodeRunner extends HTMLElement {
     const version = this.getAttribute('version');
     
     const styling = `<style>
+    
+    /*compress*/
     .code-knack-playground {
 	 position: relative;
 	 background-color: #3a3636;
@@ -155,10 +157,14 @@ class CodeRunner extends HTMLElement {
 	 justify-content: center;
 	 background: rgba(0, 0, 0, 0.4);
 }
- </style>`
+
+/*endcompress*/
+ </style>
+
+ `
     
     if (!language || !version){
-     return this.innerHTML = `${styling}     <div>
+     return this.innerHTML = `${styling}   <!--compress-->  <div>
   
 <pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground "><div class="code-knack-pane"><div class="code-knack-title">Error!</div>
 
@@ -167,13 +173,15 @@ class CodeRunner extends HTMLElement {
         </div>
         
       </div>
-      </div>`
+      </div>
+      <!--endcompress-->
+      `
     }
     
     this.innerHTML = ` ${styling}
 
     
-    
+    <!--compress-->
     
     <div data-scriptor-btn language=${language} version=${version}>
   
@@ -189,6 +197,8 @@ class CodeRunner extends HTMLElement {
         </div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
       </div>
       </div>
+      
+      <!--endcompress-->
     `;
   }
 }
