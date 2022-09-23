@@ -1,0 +1,26 @@
+
+{
+  "name": "Code-Runner-Web-Component",
+  "version": "1.0.0",
+  "description": "A web component to run high level code on your website (static websites included)",
+  "author": {
+    "name": "MarketingPipeline",
+    "email": "",
+    "url": "https://github.com/marketingpipeline/"
+  },
+  "main": "dist/code-runner-wc.min.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "type .\\src\\code-runner-wc.js | node build\\compress-css.js | node build\\compress-html.js | babili > .\\dist\\code-runner-wc.min.js"
+  },
+  "license": "MIT",
+  "repository": "github:MarketingPipeline/Code-Runner-Web-Component",
+  "devDependencies": {
+    "babili": "^0.1.4",
+    "clean-css": "^5.3.1",
+    "html-minifier": "^4.0.0"
+  }
+}
