@@ -1,10 +1,3 @@
-/**!
- * @license Run-Code-Web-Component - A web-component to run code examples (like Python, C++ & more) with ease on your website
- * LICENSED UNDER GPL-3.0 LICENSE
- * MORE INFO CAN BE FOUND AT https://github.com/MarketingPipeline/Run-Code-Web-Component/
- */
-
-
 class CodeRunner extends HTMLElement {
 	constructor() {
 		super();
@@ -189,7 +182,7 @@ class CodeRunner extends HTMLElement {
   
 <pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">${language}</div>
 <div class="code-knack-ctrl">
-<button class="ck-button run-button" run-code-button><img src="./lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
+<button class="ck-button run-button" code-runner-button><img src="./lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
 <button class="ck-button copy-button"><img src="./lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
   
 </div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}
@@ -202,7 +195,7 @@ class CodeRunner extends HTMLElement {
 	}
 }
 
-window.customElements.define('run-code', CodeRunner);
+window.customElements.define('code-runner', CodeRunner);
 
 
 
@@ -255,7 +248,7 @@ async function getData(html_element) {
 
 const web_compontents = document.querySelectorAll('[code-runner-component]');
 
-web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ run-code-button]').addEventListener('click', (e) => handleClick(web_compontent)));
+web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
 
 function handleClick(button) {
 	getData(button)
