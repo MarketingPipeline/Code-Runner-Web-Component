@@ -202,7 +202,7 @@ window.customElements.define('run-code', CodeRunner);
    // gets data from API and sets the content of #result div
 async function getData(html_element) {
  
-  
+  console.log(html_element.querySelector("#output_section"))
   // display the output / results block
   const result_section =  html_element.querySelector("#output_section")
    result_section.style.display = "block";
@@ -211,6 +211,7 @@ async function getData(html_element) {
   
   
   try {
+    
     const res = await fetch("https://emkc.org/api/v2/piston/execute", {
   method: 'POST',
   body:  JSON.stringify({
@@ -226,12 +227,12 @@ async function getData(html_element) {
 
 });
     const jsonResult = await res.json();
-    
+    console.log(jsonResult)
      // if message - code error
     if (jsonResult.message){
-         result.innerText = JSON.stringify(`Error ${jsonResult.message}`)
+        html_element.querySelector("#result").innerText = JSON.stringify(`Error ${jsonResult.message}`)
     } else {
-    result.innerText =  jsonResult.run.output
+    html_element.querySelector("#result").innerText =  jsonResult.run.output
     }
     
   } 
