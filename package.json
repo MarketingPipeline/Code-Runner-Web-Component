@@ -15,7 +15,7 @@
      "test": "echo \"Error: no test specified\" && exit 1",
     "build": "type .\\src\\code-runner-wc.js | node build\\compress-css.js | node build\\compress-html.js | babili > .\\dist\\code-runner-wc.min.js"
   },
-  "license": "MIT",
+  "license": "GPL-3.0",
   "repository": "github:MarketingPipeline/Code-Runner-Web-Component",
   "devDependencies": {
     "babili": "^0.1.4",
