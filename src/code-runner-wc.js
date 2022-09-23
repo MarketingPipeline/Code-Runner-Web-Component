@@ -44,6 +44,7 @@ class CodeRunner extends HTMLElement {
 	 font-family: 'Metropolis-Medium', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Helvetica Neue', sans-serif;
 	 align-items: center;
 	 opacity: 0.5;
+	 text-transform: uppercase;
 }
  .code-knack-playground .code-knack-pane .code-knack-ctrl {
 	 flex: 1;
@@ -173,6 +174,9 @@ class CodeRunner extends HTMLElement {
       <!--endcompress-->
       `
 		}
+		
+		 // disable spellcheck
+	        this.spellcheck = false;
 
 		this.innerHTML = ` ${styling}
     
