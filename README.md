@@ -52,6 +52,8 @@ Set a <code>language</code> attribute to a [supported programming language](#sup
 
 How to use <b><i>Code Runner</b></i> with <b>Pre-Defined Code</b>:
 
+You can pre-define a code example to run, simply by inserting the code inside of a <code>code-runner</code> element like so - 
+
 ```html
 <code-runner language="python" version="3">print('hello world')</code-runner>
 ```    
