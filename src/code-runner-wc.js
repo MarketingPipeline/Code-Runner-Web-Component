@@ -217,7 +217,7 @@ async function getData(html_element) {
 		const res = await fetch("https://emkc.org/api/v2/piston/execute", {
 			method: 'POST',
 			body: JSON.stringify({
-				"language": html_element.getAttribute("language"),
+				"language": html_element.getAttribute("language").toLowerCase(),
 				"version": html_element.getAttribute("version"),
 				"files": [{
 					"content": html_element.querySelector("#codetorun").innerText
