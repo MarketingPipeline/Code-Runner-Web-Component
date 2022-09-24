@@ -251,10 +251,9 @@ async function getData(html_element) {
 
 const web_compontents = document.querySelectorAll('[code-runner-component]');
 
-web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => { console.log("e"); handleClick(web_compontent);}));
+web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
 
 function handleClick(button) {
-	console.log(button)
 	getData(button)
 }
 
