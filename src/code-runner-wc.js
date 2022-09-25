@@ -192,19 +192,20 @@ outline: 0px solid rgba(39, 40, 35, 1);
 		this.innerHTML = ` ${styling}
     
     <!--compress-->
+
+    <!--compress-->
     
     <div code-runner-component language=${language} version=${version}>
   
 <pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">${language}</div>
-  <div class="code-knack-mask">Copied to the clipboard.</div>
+  <div class="code-knack-mask" >Copied to the clipboard.</div>
 <div class="code-knack-ctrl">
 <button class="ck-button run-button" code-runner-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
 <button class="ck-button copy-button" code-runner-copy-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
   
-</div><pre id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}</div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
+</div><pre id="codetorun" class="code-knack-text autoExpand" style="/* display: none; */">${this.innerHTML}</pre><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content ktx" id="result">Loading..<br></pre></div></div></pre>
       </div>
       </div>
-      
       <!--endcompress-->
     `;
 	}
@@ -266,7 +267,12 @@ const web_compontents = document.querySelectorAll('[code-runner-component]');
 web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
 
 function handleClick(button) {
-	getData(button)
+if (button.getAttribute("language") === "latex"){
+    renderLatex(button)
+    } else{
+      getData(button)
+    }
+
 }
 
 
@@ -306,7 +312,8 @@ editor.session.setMode("ace/mode/python");
 editor.setValue(text_value);
   
 editor.clearSelection();
-editor.resize()  
+  
+  
 }
 
 }
@@ -342,3 +349,58 @@ CreateAllAceCodeEditors()
 }
 
 loadMarkdownParser()
+
+
+function renderLatex(html_element){
+  console.log(html_element.querySelector("#codetorun").innerHTML)
+  function convertValueToLatex(){
+  return katex.renderToString(html_element.querySelector("#codetorun").innerText, {
+  throwOnError: false,
+});
+  }
+  
+  	const result_section = html_element.querySelector("#output_section")
+	result_section.style.display = "block";
+html_element.querySelector("#output_section").innerHTML = convertValueToLatex()
+  
+}
+
+
+
+document.querySelectorAll("code-runner").forEach((el) => {
+  if (el.getAttribute("language").toLowerCase() === "latex") {
+  loadKatex()
+  }
+})
+
+
+
+
+function loadKatex(){
+  
+    /// Add Markdown Parser To Document
+var script = document.createElement('script');
+script.src = "https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.js";
+
+document.head.appendChild(script); //or something of the likes  
+  
+  
+  
+  
+  // On Error Loading Markdown Parser
+script.onerror = function () {
+ 
+  console.error("Markdown Tag: Error while performing function LoadMarkdownParser - There was an error loading the Markdown Parser")
+  
+}
+
+  
+  /// Markdown Parser Load Successful 
+script.onload = function () {
+ 
+  // Append this CSS
+
+// https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.css 
+  
+};
+}
