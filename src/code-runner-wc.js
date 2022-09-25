@@ -13,6 +13,7 @@ class CodeRunner extends HTMLElement {
 
 		const styling = `<style>
     
+     
     /*compress*/
     .code-knack-playground {
 	 position: relative;
@@ -43,9 +44,11 @@ class CodeRunner extends HTMLElement {
 	 font-size: 14px;
 	 font-family: 'Metropolis-Medium', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Helvetica Neue', sans-serif;
 	 align-items: center;
-	 opacity: 0.5;
-	 text-transform: uppercase;
+	 opacity: 0.5; 
+   
+   text-transform: uppercase;
 }
+
  .code-knack-playground .code-knack-pane .code-knack-ctrl {
 	 flex: 1;
 	 display: flex;
@@ -94,12 +97,17 @@ class CodeRunner extends HTMLElement {
 	 font-family: 'Menlo', 'Roboto Mono', 'Courier New', Courier, monospace !important;
 }
  .code-knack-playground .code-knack-text {
+outline: 0px solid rgba(39, 40, 35, 1);
 	 color: var(--code, white);
 	 border: none;
 	 width: 100%;
 	 height: 100%;
 	 background: var(--code-bg, rgba(39, 40, 35, 1));
 	 font-family: 'Menlo', 'Roboto Mono', 'Courier New', Courier, monospace !important;
+}
+
+.code-knack-playground .code-knack-text:focus {
+     outline: 0px solid rgba(39, 40, 35, 1);
 }
  .code-knack-playground .code-knack-output {
 	 display: none;
@@ -118,6 +126,8 @@ class CodeRunner extends HTMLElement {
 	 border-bottom-style: solid;
 	 border-bottom-color: rgba(255, 255, 255, 0.06);
 }
+
+
  .code-knack-playground .code-knack-output .code-knack-output-content {
 	 color: var(--text, white);
 	 white-space: pre-line;
@@ -159,6 +169,7 @@ class CodeRunner extends HTMLElement {
 }
 /*endcompress*/
  </style>
+
  `
 
 		if (!language || !version) {
@@ -190,7 +201,7 @@ class CodeRunner extends HTMLElement {
 <button class="ck-button run-button" code-runner-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
 <button class="ck-button copy-button" code-runner-copy-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
   
-</div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}</div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
+</div><pre id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}</div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
       </div>
       </div>
       
@@ -275,3 +286,59 @@ function handleCopyBtnClick(html_element) {
 }, "3000")
 
 }
+
+
+
+
+function CreateAllAceCodeEditors(){
+ 
+
+web_compontents.forEach((web_compontent) => CreateAceCodeEditor(web_compontent));
+
+function CreateAceCodeEditor(html_element){
+var text_value = html_element.querySelector("#codetorun").textContent
+  // Editor Settings (Provided by C9)
+var editor = ace.edit(html_element.querySelector("#codetorun"));
+editor.setTheme("ace/theme/monokai");
+editor.setShowPrintMargin(false);
+editor.session.setMode("ace/mode/python");
+  
+editor.setValue(text_value);
+  
+editor.clearSelection();
+editor.resize()  
+}
+
+}
+
+
+function loadMarkdownParser(){
+  
+  /// Add Markdown Parser To Document
+var script = document.createElement('script');
+script.src = "https://cdnjs.cloudflare.com/ajax/libs/ace/1.11.1/ace.js";
+
+document.head.appendChild(script); //or something of the likes  
+  
+  
+  
+  
+  // On Error Loading Markdown Parser
+script.onerror = function () {
+ 
+  console.error("Markdown Tag: Error while performing function LoadMarkdownParser - There was an error loading the Markdown Parser")
+  
+}
+
+  
+  /// Markdown Parser Load Successful 
+script.onload = function () {
+ 
+  // Let the Magic Begin 
+
+CreateAllAceCodeEditors()
+  
+};
+}
+
+loadMarkdownParser()
