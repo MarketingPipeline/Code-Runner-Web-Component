@@ -42,7 +42,7 @@ Set a <code>language</code> attribute to a [supported programming language](#sup
 
    include this [script](https://github.com/MarketingPipeline/Code-Runner-Web-Component/blob/main/dist/code-runner-wc.min.js) in your HTML document.
          
-    <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component/dist/code-runner-wc.min.js" defer></script> 
+    <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component@main/dist/code-runner-wc.min.js" defer></script> 
 
 
 
