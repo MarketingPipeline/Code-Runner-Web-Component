@@ -19,6 +19,7 @@ class CodeRunner extends HTMLElement {
      
     /*compress*/
     .code-knack-playground {
+    
 	 position: relative;
 	 background-color: #3a3636;
 	 background-color: var(--bg, #3a3636);
@@ -83,6 +84,7 @@ class CodeRunner extends HTMLElement {
 }
  .code-knack-playground pre {
 	 background: transparent;
+   
 	 color: var(--code, white);
 	 border-bottom-left-radius: 3px;
 	 border-bottom-right-radius: 3px;
@@ -91,11 +93,14 @@ class CodeRunner extends HTMLElement {
 	 padding-left: 16px;
 }
  .code-knack-playground .CodeMirror, .code-knack-playground .code-knack-text {
+    
+
 	 font-size: 14px;
 	 line-height: 18px;
-	 height: auto;
+
 }
  .code-knack-playground .CodeMirror pre, .code-knack-playground .code-knack-text pre {
+
 	 padding: 0 4px;
 	 font-family: 'Menlo', 'Roboto Mono', 'Courier New', Courier, monospace !important;
 }
@@ -200,7 +205,7 @@ outline: 0px solid rgba(39, 40, 35, 1);
     
     <div code-runner-component language=${language} version=${version}>
   
-<pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">${language}</div>
+<pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground " data-lang="cpp" data-options=""><div class="code-knack-pane"><div class="code-knack-title">${GetVersionForPistonAPI(this.getAttribute("language").toLowerCase(), "GETNAME")}</div>
   <div class="code-knack-mask" >Copied to the clipboard.</div>
 <div class="code-knack-ctrl">
 <button class="ck-button run-button" code-runner-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
@@ -310,16 +315,24 @@ var text_value = html_element.querySelector("#codetorun").textContent
 var editor = ace.edit(html_element.querySelector("#codetorun"));
 editor.setTheme("ace/theme/monokai");
 editor.setShowPrintMargin(false);
-editor.session.setMode("ace/mode/python");
+editor.session.setMode(`ace/mode/${GetVersionForPistonAPI(html_element.getAttribute("language").toLowerCase(), "GETNAME")}`);
   
 editor.setValue(text_value);
   
 editor.clearSelection();
-  
-  
+/// This will set editor to content length
+
+ /// This will set editor to auto-expand 
+//editor.setOptions({
+  //  maxLines: Infinity
+// });
+editor.setOptions({
+   maxLines: Infinity
+ });
 }
 
 }
+
 
 
 function loadMarkdownParser(){
@@ -410,8 +423,9 @@ script.onload = function () {
 
 
 /// Provides the version to use for Piston API automatically! 
-function GetVersionForPistonAPI(string){
+function GetVersionForPistonAPI(string, getName){
 data = PistonAPI_Languages  
+  
 for (const key in data){
   if (!string == data[key].language){
     console.log(`Error: Code-Runner could not auto-detect version to use for ${string}`)
@@ -421,14 +435,34 @@ for (const key in data){
   
  if (string == data[key].language){
       console.log(`found ${data[key].version} for ${string}` )
-    return data[key].version
+     if(getName){
+        if (data[key].language){
+          return data[key].language
+        } else{
+       return "undefinedd"
+        } 
+     } else{
+         return data[key].version
+     }
  } else {
    for (const aliasName in data[key].aliases){
     if (string == data[key].aliases[aliasName]){
       console.log(`found ${data[key].version} for ${string}` )
-         return data[key].version
+    
+             if(getName){
+        if (data[key].language){
+          return data[key].language
+        } 
+          // need to throw error if support language is not found     
+               
+     } else {
+      
+       return data[key].version
+     }
       
     }
+     
+   
       // Need to fix this and throw error
      //  else{
      // console.log(`Error: Code-Runner could not auto-detect version to use for ${string}`)
