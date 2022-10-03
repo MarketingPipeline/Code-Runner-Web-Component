@@ -281,7 +281,7 @@ if (button.getAttribute("language").toLowerCase() === "latex" || "markdown" || "
       }
   
         if (button.getAttribute("language") === "markdown" || "md"){
-       console.log("to-do - add showdownd.js parser etc")
+       renderMarkdown(button)
       }
   
   
@@ -374,7 +374,6 @@ CreateAllAceCodeEditors()
 
 loadMarkdownParser()
 
-
 function renderLatex(html_element){
   console.log(html_element.querySelector("#codetorun").innerHTML)
   function convertValueToLatex(){
@@ -391,20 +390,41 @@ html_element.querySelector("#output_section").innerHTML = convertValueToLatex()
 
 
 
+
+function renderMarkdown(html_element){
+ 
+  let converter = new showdown.Converter({
+    tables: true,
+    simpleLineBreaks: true
+  })
+      console.log(html_element.querySelector("#codetorun").innerHTML)
+  	const result_section = html_element.querySelector("#output_section")
+	result_section.style.display = "block";
+html_element.querySelector("#output_section").innerHTML = converter.makeHtml(html_element.querySelector(".ace_content").innerText)
+  
+}
+
+
+
 document.querySelectorAll("code-runner").forEach((el) => {
   if (el.getAttribute("language").toLowerCase() === "latex") {
-  loadKatex()
+  loadJavaScriptFile('https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.js')
   }
+  
+    if (el.getAttribute("language").toLowerCase() === "md" || "markdown") {
+  loadJavaScriptFile('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.7/showdown.min.js')
+  }
+    
+
 })
 
 
 
-
-function loadKatex(){
+function loadJavaScriptFile(url){
   
     /// Add Markdown Parser To Document
 var script = document.createElement('script');
-script.src = "https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.js";
+script.src = url;
 
 document.head.appendChild(script); //or something of the likes  
   
