@@ -13,6 +13,7 @@ class CodeRunner extends HTMLElement {
 
 	connectedCallback() {
 
+
 		// will be used to set language type to use and names of languages 
 		const language = this.getAttribute('language');
 
@@ -203,10 +204,32 @@ class CodeRunner extends HTMLElement {
       
       <!--endcompress-->
     `;
+    
+
+  // handle Run Button clicks -   
+ this.querySelector('[ code-runner-button]').addEventListener('click', (e) => getData(this));
+    
+        
+ // Handle Copy Button Clicks   
+this.querySelector('[code-runner-copy-button]').addEventListener('click', (e) => handleCopyBtnClick(this));
+
+function handleCopyBtnClick(html_element) {
+  
+   navigator.clipboard.writeText(html_element.querySelector("#codetorun").innerText)
+  /// Set Copied To Clipboard Visible
+  html_element.querySelector(".code-knack-mask").style.display = "flex"
+   // then hide it after X seconds.. 
+  setTimeout(() => {
+   html_element.querySelector(".code-knack-mask").style.display = "none";
+}, "3000")
+
+}
+    
+
 	}
 }
 
-window.customElements.define('code-runner', CodeRunner);
+
 
 
 
@@ -214,8 +237,6 @@ window.customElements.define('code-runner', CodeRunner);
 
 // gets data from API and sets the content of #result div
 async function getData(html_element) {
-
-	console.log(html_element.querySelector("#output_section"))
 	// display the output / results block
 	const result_section = html_element.querySelector("#output_section")
 	result_section.style.display = "block";
@@ -237,7 +258,6 @@ async function getData(html_element) {
 
 		});
 		const jsonResult = await res.json();
-		console.log(jsonResult)
 		// if message - code error
 		if (jsonResult.message) {
 			html_element.querySelector("#result").innerText = JSON.stringify(`Error ${jsonResult.message}`)
@@ -254,34 +274,6 @@ async function getData(html_element) {
 }
 
 
-
-/// Handle all button clicks for WC
-
-const web_compontents = document.querySelectorAll('[code-runner-component]');
-
-web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
-
-function handleClick(button) {
-	getData(button)
-}
-
-
-
-/// handle copy click
-
-web_compontents.forEach((web_compontent) => web_compontent.querySelector('[code-runner-copy-button]').addEventListener('click', (e) => handleCopyBtnClick(web_compontent)));
-
-function handleCopyBtnClick(html_element) {
-  
-   navigator.clipboard.writeText(html_element.querySelector("#codetorun").innerText)
-  /// Set Copied To Clipboard Visible
-  html_element.querySelector(".code-knack-mask").style.display = "flex"
-   // then hide it after X seconds.. 
-  setTimeout(() => {
-   html_element.querySelector(".code-knack-mask").style.display = "none";
-}, "3000")
-
-}
 /// Provides the version to use for Piston API automatically! 
 function GetVersionForPistonAPI(string){
 data = PistonAPI_Languages  
@@ -315,3 +307,6 @@ for (const key in data){
   
 }
 }
+
+
+window.customElements.define('code-runner', CodeRunner);
