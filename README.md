@@ -30,11 +30,11 @@ You can view a demo of the Code Runner web component in use [here.](https://mark
 
 How to use <b><i>Code Runner</b></i>:
 
-Set a <code>language</code> attribute to a [supported programming language](#supported-languages) & <code>version</code> attribute to the programming version you prefer to use - example below
+Set a <code>language</code> attribute to a [supported programming language](#supported-languages) you prefer to use - example below
 
 
 ```html
-<code-runner language="python" version="3"></code-runner>
+<code-runner language="python"></code-runner>
 ```    
 
 
@@ -55,7 +55,7 @@ How to use <b><i>Code Runner</b></i> with <b>Pre-Defined Code</b>:
 You can pre-define a code example to run, simply by inserting the code inside of a <code>code-runner</code> element like so - 
 
 ```html
-<code-runner language="python" version="3">print('hello world')</code-runner>
+<code-runner language="python">print('hello world')</code-runner>
 ```    
 
 
@@ -80,13 +80,6 @@ You can pre-define a code example to run, simply by inserting the code inside of
 </tr>
 
 
-<tr>
-<td>version</td>
-              <td>The programming language version to use</code></td>
-<td><code>Undefined</code></td>
-<td>Yes</td>
-</tr>
- 
 
 
 
