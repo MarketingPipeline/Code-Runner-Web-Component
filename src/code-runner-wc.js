@@ -198,14 +198,20 @@ class CodeRunner extends HTMLElement {
 <button class="ck-button run-button" code-runner-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-play-dark.svg"><span >run</span></button>
 <button class="ck-button copy-button" code-runner-copy-button><img src="https://lyricat.github.io/code-knack/demo/lib/code-knack/images/icon-copy-dark.svg"><span>copy</span></button></div>
   
-</div><div id="codetorun" class="code-knack-text" contenteditable style="/* display: none; */">${this.innerHTML}</div><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
+</div><textarea id="codetorun" class="code-knack-text" style="/* display: none; */">${this.innerHTML}</textarea><div id="output_section" class="code-knack-output text-output"><div class="code-knack-output-title">Output</div><pre class="code-knack-output-content" id="result">Loading..<br></pre></div></div></pre>
       </div>
       </div>
       
       <!--endcompress-->
     `;
     
-
+var editor = CodeMirror.fromTextArea(this.querySelector("#codetorun"), {
+    mode: "python",
+    lineNumbers: true,
+});
+  
+editor.save()
+    
   // handle Run Button clicks -   
  this.querySelector('[ code-runner-button]').addEventListener('click', (e) => getData(this));
     
