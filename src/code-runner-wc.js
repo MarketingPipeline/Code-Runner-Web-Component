@@ -207,7 +207,7 @@ class CodeRunner extends HTMLElement {
     
 
   // handle Run Button clicks -   
- this.querySelector('[ code-runner-button]').addEventListener('click', (e) => getData(this));
+ this.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleclick(this));
     
         
  // Handle Copy Button Clicks   
@@ -308,5 +308,11 @@ for (const key in data){
 }
 }
 
+function handleclick(codeRunner){
+  // allow plugins / extensions to be wrote for this.
+  if (!codeRunner.hasAttribute("custom-compiler")){
+    getData(codeRunner)
+  }
+}
 
 window.customElements.define('code-runner', CodeRunner);
