@@ -63,3 +63,26 @@ php.expose($, 'jQuery');
     
                   
 });   
+
+
+
+/// Terminal.js Loader 
+
+ const jsFiles = [
+        'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',
+        'https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.12.4.min.js',
+        'https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/bootstrap.min.js',
+        'https://cdn.jsdelivr.net/npm/sweetalert2@8'
+    ]
+ let numberOfFiles = 0
+    jsFiles.forEach((item) => {
+      numberOfFiles += 1
+        loadJSFile(item, numberOfFiles )
+    })
+
+function loadJSFile(item, number){
+ // number is the last number of files 
+  if (number == 4){
+    console.log("Last Item Loaded!")
+  }
+}
