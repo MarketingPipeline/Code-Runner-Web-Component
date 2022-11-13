@@ -5,6 +5,37 @@ You can easily include plug-ins / extensions with the Code-Runner web component 
 ## Compiler Plugins
 
 > These plugins / extensions add extra compiler support
+fgf
+
+<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Plugin Name</th>
+      <th>Description</th>
+      <th>Compiler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>code-mirror</td>
+      <td>Cell</td>
+      <td>Cell</td>
+    </tr>
+    <tr>
+      <td>Cell</td>
+      <td>Cell</td>
+      <td>Cell</td>
+    </tr>
+    <tr>
+      <td>Cell</td>
+      <td>Cell</td>
+      <td>Cell</td>
+    </tr>
+  </tbody>
+</table>
+<!-- Codes by Quackit.com -->
+
 
 - Showdown (adds support to render Markdown via Showdown.js)
 - Katex (add support to render Latex via Katex)
