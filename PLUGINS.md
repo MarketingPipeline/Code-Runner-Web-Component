@@ -7,7 +7,7 @@ You can now use plug-ins / extensions with the Code-Runner web component that br
 > These plugins / extensions add extra compiler support
 
 - Markdown (adds support to render Markdown)
-- Brython (compile Python3 via Brython) 
+- Latex (add support to render Latex)
 
 
 To use a compiler plugin - you must set the HTML attribute <code>custom-compiler</code> - example below. 
@@ -39,7 +39,18 @@ To use a editor plugin simply include a script in your HTML document like so -
 
 ## Create your own!
 
-You can create your own plugins / extensions for the Code-Runner web component! Feel free to share any plugins / extensions with the community by adding it to the repo to
-the folder <code>src/plugins/code-runner-YOUR-PLUGIN-NAME.js</code>!
+You can create your own plugins / extensions for the Code-Runner web component!
+
+Feel free to share any plugins / extensions with the community by adding it to the repo via a pull request - be sure to follow these's steps below 
+
+- Create a folder like so - <code>src/plugins/YOUR-PLUGIN-NAME.js</code>!
+- Add your code / plugin in the folder like so - <code>src/plugins/YOUR-PLUGIN-FOLDER-NAME/code-runner-YOUR-PLUGIN-NAME.js</code>!
+- Add a README.md inside of the folder that describes how to use your plugin.
+- Add it to this list!
 
 For a demo on how to make your own plugin / extension - see the following plugins / code used as examples. 
+
+Editor Plugin Example - 
+
+
+Compiler Plugin Example -
