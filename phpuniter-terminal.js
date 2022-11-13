@@ -7,10 +7,12 @@ web_compontents.forEach((web_compontent) => t(web_compontent));
  function t(b){   
      
      // store pre-defined code to run
-   let preDefinedCode =  b.querySelector("#codetorun").innerHTML    
+   let preDefinedCode =  b.querySelector("#codetorun").innerHTML   
    // clear text from html 
    b.querySelector("#codetorun").innerHTML = ""
-   
+   b.querySelector("#codetorun").className = '';
+      b.querySelector("#codetorun").removeAttribute("contenteditable")
+     
 var term = $(b.querySelector("#codetorun")).terminal(function(command) {
     console.log(command)
     php.execute('<?php ' + command);
@@ -38,7 +40,7 @@ php.getStderr().on('data', function(text) {
 php.expose(term, 'term');
 php.expose($, 'jQuery');
  php.execute('<?php ' +  preDefinedCode);
-     console.log( preDefinedCode)   
+
    }
                      
                  
