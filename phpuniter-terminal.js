@@ -1,17 +1,26 @@
 window.addEventListener('load', (event) => {
     
-const web_compontents = document.querySelectorAll('[code-runner-component]');
+const web_compontents = document.querySelectorAll('code-runner');
 
 web_compontents.forEach((web_compontent) => t(web_compontent));    
 
  function t(b){   
-     
-     // store pre-defined code to run
-   let preDefinedCode =  b.querySelector("#codetorun").innerHTML   
+     if (b.hasAttribute("custom-compiler") === true){
+         console.log(b.getAttribute("custom-compiler"))
+         if (b.getAttribute("custom-compiler") == "python-shell"){
+             // render the terminal 
+             
+               // store pre-defined code to run
+   let preDefinedCode =  b.querySelector("#codetorun").innerHTML 
+   
+
    // clear text from html 
    b.querySelector("#codetorun").innerHTML = ""
    b.querySelector("#codetorun").className = '';
-      b.querySelector("#codetorun").removeAttribute("contenteditable")
+     
+     
+     b.querySelector('.code-knack-title').innerHTML = "PHP Shell" 
+     b.querySelector("#codetorun").removeAttribute("contenteditable")
      
 var term = $(b.querySelector("#codetorun")).terminal(function(command) {
     console.log(command)
@@ -43,5 +52,14 @@ php.expose($, 'jQuery');
 
    }
                      
-                 
-});
+
+             
+             
+             
+         }
+         
+     }
+   
+    
+                  
+});   
