@@ -21,11 +21,18 @@ function renderMarkdown(html_element){
 	result_section.style.display = "block";
 
   // remove loading text
-  html_element.querySelector("#result").innerText = ""
-  
+  //html_element.querySelector("#result").innerText = ""
+  ////
    let php = uniter.createEngine('PHP');
 php.getStdout().on('data', function (text) { html_element.querySelector("#output_section").innerHTML = text });
-php.execute(html_element.querySelector("#codetorun").innerText);
+  
+  
+  php.getStderr().on('data', function(text) {
+  html_element.querySelector("#output_section").innerHTML = text 
+});
+php.execute(`<?php ` + html_element.querySelector("#codetorun").innerText + `?>`);
+
+  //<?php echo 'hello world!
   
 }
 
