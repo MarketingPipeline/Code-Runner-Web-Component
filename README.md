@@ -43,8 +43,14 @@ Set a <code>language</code> attribute to a [supported programming language](#sup
    include this [script](https://github.com/MarketingPipeline/Code-Runner-Web-Component/blob/main/dist/code-runner-wc.min.js) in your HTML document.
          
     <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component@main/dist/code-runner-wc.min.js" defer></script> 
+    
+and include this [CSS](https://github.com/MarketingPipeline/Code-Runner-Web-Component/blob/main/dist/code-runner-wc.min.js) in your HTML document.
 
+```html
+ <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component@main/dist/code-runner-wc.min.js" defer></script> 
+```
 
+<b>Note</b>: you can easily customize the look of this web component by hosting your own customized CSS file!
 
 
 <br>
@@ -177,7 +183,9 @@ You can pre-define a code example to run, simply by inserting the code inside of
 <br>
 
 
+## Plugins
 
+The Code Runner web component allows you to easily add more features such as more supported languages via Plugins, you can find a list of plugins available [here](PLUGINS.md).
 
 
 ## Contributing ![GitHub](https://img.shields.io/github/contributors/MarketingPipeline/Code-Runner-Web-Component)
