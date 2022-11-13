@@ -66,23 +66,32 @@ php.expose($, 'jQuery');
 
 
 
-/// Terminal.js Loader 
-
- const jsFiles = [
-        'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',
-        'https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.12.4.min.js',
-        'https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/bootstrap.min.js',
-        'https://cdn.jsdelivr.net/npm/sweetalert2@8'
-    ]
- let numberOfFiles = 0
-    jsFiles.forEach((item) => {
-      numberOfFiles += 1
-        loadJSFile(item, numberOfFiles )
-    })
-
-function loadJSFile(item, number){
- // number is the last number of files 
-  if (number == 4){
-    console.log("Last Item Loaded!")
-  }
-}
+ let create = (info) => {
+            return new Promise(function(resolve, reject) {
+                let gfgData = document.createElement('script');
+                gfgData.src = info;
+                gfgData.async = false;
+                gfgData.onload = () => {
+                    resolve(info);
+                };
+                gfgData.onerror = () => {
+                    reject(info);
+                };
+                document.body.appendChild(gfgData);
+            });
+        };
+        let gfgScript = ['https://code.jquery.com/jquery-3.1.1.min.js', 
+                         'https://cdn.terminal.jcubic.pl/wcwidth.js', 
+                         'https://unpkg.com/jquery.terminal/js/jquery.terminal.js',
+                        'https://unpkg.com/js-polyfills/keyboard.js',
+                        'https://unpkg.com/jquery.terminal/js/unix_formatting.js',
+                        'https://unpkg.com/prismjs@1.8.1/prism.js', 'https://unpkg.com/jquery.terminal/js/less.js', 'https://unpkg.com/jquery.terminal/js/prism.js', 'https://unpkg.com/uniter@2.12.1/dist/uniter.js', 'https://unpkg.com/prismjs@1.8.1/components/prism-php.js'];
+        let promiseData = [];
+        gfgScript.forEach(function(info) {
+            promiseData.push(create(info));
+        });
+        Promise.all(promiseData).then(function() {
+            console.log('The required scripts are loaded successfully!');
+        }).catch(function(gfgData) {
+            console.log(gfgData + ' failed to load!');
+        });
