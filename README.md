@@ -7,7 +7,7 @@
 
 
 
-A web component that allows you to run high level programming languages on your website via the public [Piston API](https://github.com/engineer-man/piston#Public-API) <br>
+A web component that allows you to run high level programming languages on your website (client-side / static websites included!) <br>
   <small> <b><i>Show your support!</i> </b></small>
   <br>
    <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component">
@@ -96,6 +96,10 @@ You can pre-define a code example to run, simply by inserting the code inside of
 
 ## Supported Languages
 
+
+These languages can be compiled using the web component via the public [Piston API](https://github.com/engineer-man/piston#Public-API).
+
+
 `awk`,
 `bash`,
 `befunge93`,
@@ -180,7 +184,9 @@ You can pre-define a code example to run, simply by inserting the code inside of
 `yeethon`,
 `zig`,
 
-<br>
+<b>Note</b>: more compilers / languages & features can be added by using a plugin. For more info - <br>
+see [plugins](#plugins) below.
+
 
 
 ## Plugins
