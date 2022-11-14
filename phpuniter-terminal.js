@@ -77,7 +77,19 @@ php.expose($, 'jQuery');
                 gfgData.onerror = () => {
                     reject(info);
                 };
-                document.body.appendChild(gfgData);
+
+                
+// check if any of these scripts already exist in document from user or another plugin etc...                 
+var len = document.querySelector('script[src*="${gfgData}"]'); 
+
+if (len){
+if (len.length === 0) {
+    // Script is not already in HTML Document - adding script to HTML document. 
+     document.body.appendChild(gfgData);
+}
+}
+  
+               
             });
         };
         let gfgScript = ['https://code.jquery.com/jquery-3.1.1.min.js', 
@@ -91,7 +103,7 @@ php.expose($, 'jQuery');
             promiseData.push(create(info));
         });
         Promise.all(promiseData).then(function() {
-            console.log('The required scripts are loaded successfully!');
+            console.log('Code Runner: The required scripts for PHP terminal are loaded successfully!');
         }).catch(function(gfgData) {
-            console.log(gfgData + ' failed to load!');
+            console.log('Code Runner:' + gfgData + ' failed to load!');
         });
