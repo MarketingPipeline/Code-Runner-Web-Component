@@ -90,16 +90,16 @@ and include this script with your prefered compiler plugin in your HTML document
   </thead>
   <tbody>
     <tr>
-      <td>cr-showdown</td>
-      <td>cr-katex</td>
+      <td>cr-skulpt-terminal</td>
+      <td>Compile Python2 inside of a terminal / shell.</td>
       <td>cr-uniter</td>
       <td>cr-skulpt</td>
        <td>Cell</td>
          <td>Cell</td>
     </tr>
     <tr>
-      <td>cr</td>
-      <td>Cell</td>
+      <td>cr-uniter-terminal</td>
+      <td>Compile PHP inside of a terminal / shell</td>
       <td>Cell</td>
       <td>Cell</td>
        <td>Cell</td>
@@ -116,30 +116,10 @@ and include this script with your prefered compiler plugin in your HTML document
     
   </tbody>
 </table>
-<!-- Codes by Quackit.com -->
+
+To use a terminal plugin - view the corresponding README file to see the usage. 
 
 
-- Showdown (adds support to render Markdown via Showdown.js)
-- Katex (add support to render Latex via Katex)
-
-
-To use a compiler plugin - you must set the HTML attribute <code>custom-compiler</code> to a valid plugin / compiler name - example below. 
-
-
-```html
-<code-runner custom-compiler="showdown" language="Markdown"># Like this</code-runner>
-```
-
-
-<b>Note</b>: language attribute can be set to anything!
-
-  
-and include this script with your prefered compiler plugin in your HTML document.
-
-```html
-/plugins/code-runner-COMPILER-PLUGIN-NAME-HERE
-```  
-  
 
 
 ## Editor Plugins 
