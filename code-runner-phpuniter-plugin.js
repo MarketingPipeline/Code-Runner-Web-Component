@@ -4,17 +4,22 @@ window.addEventListener('load', (event) => {
 
 const web_compontents = document.querySelectorAll('[code-runner-component]');
 
+// set the code editor (Ace-Editor) mode to PHP -
+	// Params (html_element, lang)
+web_compontents.forEach((web_compontent) =>	CreateAceCodeEditor(web_compontent, "php"))
+	
+	
 web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
 
 function handleClick(button) {
-renderMarkdown(button)
+renderPHP(button)
 }
 
 
 
 
 
-function renderMarkdown(html_element){
+function renderPHP(html_element){
  
  
   	const result_section = html_element.querySelector("#output_section")
