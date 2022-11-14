@@ -21,7 +21,15 @@ fgf
   </thead>
   <tbody>
     <tr>
-      <td>code-mirror</td>
+      <td>cr-showdown</td>
+      <td>cr-katex</td>
+      <td>cr-uniter</td>
+      <td>cr-skulpt</td>
+       <td>Cell</td>
+         <td>Cell</td>
+    </tr>
+    <tr>
+      <td>cr</td>
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>
@@ -30,6 +38,67 @@ fgf
     </tr>
     <tr>
       <td>Cell</td>
+      <td>Cell</td>
+      <td>Cell</td>
+      <td>Cell</td>  
+       <td>Cell</td>
+         <td>Cell</td>
+    </tr>
+    
+  </tbody>
+</table>
+<!-- Codes by Quackit.com -->
+
+
+- Showdown (adds support to render Markdown via Showdown.js)
+- Katex (add support to render Latex via Katex)
+
+
+To use a compiler plugin - you must set the HTML attribute <code>custom-compiler</code> to a valid plugin / compiler name - example below. 
+
+
+```html
+<code-runner custom-compiler="showdown" language="Markdown"># Like this</code-runner>
+```
+
+
+<b>Note</b>: language attribute can be set to anything!
+
+  
+and include this script with your prefered compiler plugin in your HTML document.
+
+```html
+/plugins/code-runner-COMPILER-PLUGIN-NAME-HERE
+```  
+  
+## Terminal Plugins
+
+> These plugins / extensions allow you to compile code inside of a terminal / shell based enviroment (Command-line) .
+
+
+<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Plugin Name</th>
+      <th>Description</th>
+      <th>Compiler</th>
+       <th>Language</th>
+      <th>README</th>
+      <th>Demo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cr-showdown</td>
+      <td>cr-katex</td>
+      <td>cr-uniter</td>
+      <td>cr-skulpt</td>
+       <td>Cell</td>
+         <td>Cell</td>
+    </tr>
+    <tr>
+      <td>cr</td>
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>
