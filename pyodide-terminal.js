@@ -25,9 +25,17 @@ web_compontents.forEach((web_compontent) => t(web_compontent));
      b.querySelector("#codetorun").removeAttribute("contenteditable")
      
 var term = $(b.querySelector("#codetorun")).terminal(async function(command) {
-    console.log(command)
+    try {
+ await runCode(command)
+} catch (error) {
     
-   console.log(await runCode(command));
+  term.error(`Error: ${error.message}`);
+  // expected output: ReferenceError: nonExistentFunction is not defined
+  // Note - error messages will vary depending on browser
+}
+
+  
+    
    
 }, {
     greetings: 'Interactive Python shell\n',
