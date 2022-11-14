@@ -3,7 +3,11 @@ import { runCode, setEngine, setOptions } from "https://cdn.skypack.dev/client-s
 window.addEventListener('load', (event) => {
     
 const web_compontents = document.querySelectorAll('code-runner');
-setEngine('pyodide');
+    
+    // load the skulpt python engine 
+setEngine('skulpt');
+    
+    
 web_compontents.forEach((web_compontent) => t(web_compontent));    
 
  function t(b){   
@@ -20,7 +24,11 @@ web_compontents.forEach((web_compontent) => t(web_compontent));
    b.querySelector("#codetorun").innerHTML = ""
    b.querySelector("#codetorun").className = '';
      
-     
+    // hide the buttons
+    b.querySelector('[code-runner-button]').style.display = 'none';
+    b.querySelector('[code-runner-copy-button]').style.display = 'none';
+             
+             
      b.querySelector('.code-knack-title').innerHTML = "Python Shell" 
      b.querySelector("#codetorun").removeAttribute("contenteditable")
      
@@ -28,19 +36,22 @@ var term = $(b.querySelector("#codetorun")).terminal(async function(command) {
     try {
  await runCode(command)
 } catch (error) {
-    
-  term.error(`Error: ${error.message}`);
-  // expected output: ReferenceError: nonExistentFunction is not defined
-  // Note - error messages will vary depending on browser
+    if(error.message.includes("TypeError")){
+        term.error(`Error: Feature is not available in Python Shell`);
+    } else{
+        term.error(`Error: ${error.message}`);
+    }
+  
+ 
 }
 
   
     
    
 }, {
-    greetings: 'Interactive Python shell\n',
+    greetings: 'Interactive Python 2.6 shell\n',
     name: 'Python',
-    prompt: '> ' // same as linux exec
+    prompt: '>> ' // same as linux exec
 });
 
 // PHP to string magic method
@@ -104,3 +115,5 @@ setOptions({ output: term.echo });
         }).catch(function(gfgData) {
             console.log(gfgData + ' failed to load!');
         });
+
+//
