@@ -14,6 +14,8 @@ fgf
       <th>Plugin Name</th>
       <th>Description</th>
       <th>Compiler</th>
+      <th>README</th>
+      <th>Demo</th>
     </tr>
   </thead>
   <tbody>
@@ -21,17 +23,24 @@ fgf
       <td>code-mirror</td>
       <td>Cell</td>
       <td>Cell</td>
+      <td>Cell</td>
+         <td>Cell</td>
     </tr>
     <tr>
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>
+      <td>Cell</td>
+         <td>Cell</td>
     </tr>
     <tr>
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>
+      <td>Cell</td>  
+         <td>Cell</td>
     </tr>
+    
   </tbody>
 </table>
 <!-- Codes by Quackit.com -->
