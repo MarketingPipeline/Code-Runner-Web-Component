@@ -14,6 +14,7 @@ fgf
       <th>Plugin Name</th>
       <th>Description</th>
       <th>Compiler</th>
+       <th>Language</th>
       <th>README</th>
       <th>Demo</th>
     </tr>
@@ -24,6 +25,7 @@ fgf
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>
+       <td>Cell</td>
          <td>Cell</td>
     </tr>
     <tr>
@@ -31,6 +33,7 @@ fgf
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>
+       <td>Cell</td>
          <td>Cell</td>
     </tr>
     <tr>
@@ -38,6 +41,7 @@ fgf
       <td>Cell</td>
       <td>Cell</td>
       <td>Cell</td>  
+       <td>Cell</td>
          <td>Cell</td>
     </tr>
     
