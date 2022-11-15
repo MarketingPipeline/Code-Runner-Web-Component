@@ -241,8 +241,8 @@ async function getData(html_element) {
 	const result_section = html_element.querySelector("#output_section")
 	result_section.style.display = "block";
 
-
-
+// make sure user is connected to internet  -
+ if (navigator.onLine) {
 
 	try {
 
@@ -266,11 +266,16 @@ async function getData(html_element) {
 		}
 
 	}
-	// there was a network error  or etc... 
+	// there was a network error or API is down etc... 
 	catch (error) {
-		console.log(error.message)
 		html_element.querySelector("#result").innerText = error.message;
 	}
+ 
+ }else{
+	 // user is not connected to internet to fetch API... 
+   	html_element.querySelector("#result").innerText = "Error: You must be connected to the internet to use this!"
+ }  
+   
 }
 
 
@@ -285,12 +290,12 @@ for (const key in data){
   }
   
  if (string == data[key].language){
-      console.log(`found ${data[key].version} for ${string}` )
+     // console.log(`found ${data[key].version} for ${string}` )
     return data[key].version
  } else {
    for (const aliasName in data[key].aliases){
     if (string == data[key].aliases[aliasName]){
-      console.log(`found ${data[key].version} for ${string}` )
+      // console.log(`found ${data[key].version} for ${string}` )
          return data[key].version
       
     }
