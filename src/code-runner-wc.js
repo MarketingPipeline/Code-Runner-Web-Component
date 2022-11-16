@@ -396,7 +396,7 @@ function handleclick(codeRunner){
                 document.body.appendChild(gfgData);
             });
         };
-        let gfgScript = ['https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ace.min.js', 'https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ext-modelist.js']  
+        let gfgScript = ['https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ace.min.js', 'https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ext-modelist.js', "https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ext-themelist.js"]  
         let promiseData = [];
     
   
@@ -445,7 +445,30 @@ var editor = ace.edit(html_element.querySelector("#codetorun"));
   
 editor.$blockScrolling = Infinity;
   
+  // allow the Ace Editor theme to be changed. 
+    if (typeof CodeRunner_AceEditor_Theme == "undefined"){
 editor.setTheme("ace/theme/monokai");
+    } else{
+       
+      var themelist = ace.require("ace/ext/themelist")
+     
+var themes = themelist.themesByName //object hash of theme objects by name
+ 
+// check if theme name is valid.
+if(themes[CodeRunner_AceEditor_Theme.toLowerCase()] != undefined) {
+ 
+     editor.setTheme(`ace/theme/${CodeRunner_AceEditor_Theme.toLowerCase()}`);
+} else{
+  //
+  /// Theme choice was not valid
+  console.log(`Code Runner Error: ${CodeRunner_AceEditor_Theme} is not a valid theme - setting to default.`)
+  
+  
+  editor.setTheme("ace/theme/monokai");
+  
+}
+    }
+      
  if (language){
   SetAceEditor_Mode()
  }
@@ -483,7 +506,7 @@ editor.setOptions({
 async function CreateAceEditorForPlugin(element, language){
 
 // make sure the editor is only set for non-terminal. 
-  if (!element.getAttribute("custom-compiler").includes("shell") && !element.getAttribute("custom-compiler").includes("terminal")){
+  if (!element.getAttribute("custom-compiler").includes("shell") || !element.getAttribute("custom-compiler").includes("terminal")){
    // load ace editor for custom compiler plugin
    // Wait till AceEditor is loaded - so no errors occur.
    
