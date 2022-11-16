@@ -1,6 +1,22 @@
 
 /// Handle all button clicks for WC
 
+
+
+
+window.addEventListener('load', (event) => {
+///  set Ace Editor to Markdown Mode
+
+const web_compontents = document.querySelectorAll('code-runner');
+
+// set the code editor (Ace-Editor) mode to PHP -
+	// Params (html_element, lang)
+web_compontents.forEach((web_compontent) =>	 CreateAceEditorForPlugin(web_compontent, "css"))
+  
+});
+
+ 
+
 const web_compontents = document.querySelectorAll('[code-runner-component]');
 
 web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
