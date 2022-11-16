@@ -292,15 +292,18 @@ See the repo if there is any plugins that support "${this.getAttribute("language
 } else{
 // Code Runner WC - is NOT using Piston API & a plugin has been loaded. 	
   
-    // load ace editor for custom compiler plugin
-    async function AceEditorForCustomPlugin(element){
+// make sure the editor is only set for non-terminal. 
+  if (!this.getAttribute("custom-compiler").includes("shell") && !this.getAttribute("custom-compiler").includes("terminal")){
+   // load ace editor for custom compiler plugin
+    async function AceEditorForPistonAPI(element){
        // Wait till AceEditor is loaded - so no errors occur.
        let isAceLoaded = await loadAceEditor()
-            if (isAceLoaded.loaded === "true"){
-            CreateAceCodeEditor(element, element.getAttribute("language").toLowerCase())//
-            }    
-      }
-    AceEditorForCustomPlugin(this)
+   if (isAceLoaded.loaded === "true"){
+  CreateAceCodeEditor(element, element.getAttribute("language").toLowerCase())//
+   }    
+  }
+    AceEditorForPistonAPI(this)
+  }
 }
     
     
@@ -429,16 +432,7 @@ function handleclick(codeRunner){
 }
 
 
-  
-
-window.customElements.define('code-runner', CodeRunner);
-
-
-
-// LEAVE THESE OUTSIDE OF THE CLASS - SO THEY CAN BE USED FOR CUSTOM PLUGINS 
-
 /// function to create Ace Editors for CodeRunner-WC
-
 
 function CreateAceCodeEditor(html_element, language){
   
@@ -483,4 +477,6 @@ editor.setOptions({
    maxLines: Infinity
  });
 }
+  
 
+window.customElements.define('code-runner', CodeRunner);
