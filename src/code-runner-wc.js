@@ -204,8 +204,106 @@ class CodeRunner extends HTMLElement {
       
       <!--endcompress-->
     `;
+  
     
+   
+     let  loadedFiles = false;
+    let create = (info) => {
+            return new Promise(function(resolve, reject) {
+                let gfgData = document.createElement('script');
+                gfgData.src = info;
+                gfgData.async = false;
+                gfgData.onload = () => {
+                    resolve(info);
+                };
+                gfgData.onerror = () => {
+                    reject(info);
+                };
+                document.body.appendChild(gfgData);
+            });
+        };
+        let gfgScript = ['https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ace.min.js', 'https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ext-modelist.js']  
+        let promiseData = [];
+    
+   
+// function to load Ace Editor to page 
 
+let isAceLoadedAlready = false
+async function loadAceEditor(){ 
+        if(isAceLoadedAlready === false){
+          
+        gfgScript.forEach(function(info) {
+            promiseData.push(create(info));
+        });
+       const data = await Promise.all(promiseData).then(async function() {
+       return {loaded: "true"}
+        }).catch(function(gfgData) {
+         isAceLoadedAlready  = true
+         return {loaded: "false"}
+         console.log(gfgData + ' failed to load!');
+        });
+    
+      return data
+      } else{
+        // Ace Editor has already been loaded to page
+      }
+   }
+
+
+   
+     
+// if WC is using Piston API
+if(!this.hasAttribute("custom-compiler")){
+
+ // show error if language is not found in Piston API 
+  if(GetVersionForPistonAPI(this.getAttribute("language").toLowerCase(), "GETNAME") == undefined){
+    // this needs cleaned with a proper error function... @ Dominick?
+    			return this.innerHTML = `${styling}   <!--compress-->  <div>
+  
+<pre style="padding: 0px; --bg:rgb(58, 54, 54); --text:rgb(255, 255, 255); --border:rgba(0,0,0,0.3); --code:rgb(255, 255, 255); --code-bg:rgba(39, 40, 35, 1); --title:rgb(255, 255, 255); --button-text:wheat; --button-border:rgba(0,0,0,0.18);"><div class="code-knack-playground "><div class="code-knack-pane"><div class="code-knack-title">Error!</div>
+  
+</div><div id="codetorun" class="code-knack-text" style="/* display: none; */">Error: ${this.getAttribute("language")} is not detected or supported by the Code-Runner web-component. 
+See the repo if there is any plugins that support "${this.getAttribute("language")}"  @ https://github.com/MarketingPipeline/Code-Runner-Web-Component
+        </div>    
+      </div>
+      </div>
+      <!--endcompress-->
+      `
+  } else{
+   
+    // language was found! 
+    
+    /// Render Ace Editor! 
+        
+    async function AceEditorForPistonAPI(element){
+       // Wait till AceEditor is loaded - so no errors occur.
+     let isAceLoaded = await loadAceEditor()
+     
+    
+     if (isAceLoaded.loaded === "true"){
+        CreateAceCodeEditor(element, GetVersionForPistonAPI(element.getAttribute("language").toLowerCase(), "GETNAME"))//
+     }
+   
+    }
+    AceEditorForPistonAPI(this)
+  }
+    
+     
+} else{
+// Code Runner WC - is NOT using Piston API & a plugin has been loaded. 	
+  
+    // load ace editor for custom compiler plugin
+    async function AceEditorForCustomPlugin(element){
+       // Wait till AceEditor is loaded - so no errors occur.
+       let isAceLoaded = await loadAceEditor()
+            if (isAceLoaded.loaded === "true"){
+            CreateAceCodeEditor(element, element.getAttribute("language").toLowerCase())//
+            }    
+      }
+    AceEditorForCustomPlugin(this)
+}
+    
+    
   // handle Run Button clicks -   
  this.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleclick(this));
     
@@ -280,7 +378,7 @@ async function getData(html_element) {
 
 
 /// Provides the version to use for Piston API automatically! 
-function GetVersionForPistonAPI(string){
+function GetVersionForPistonAPI(string, getName){
 data = PistonAPI_Languages  
 for (const key in data){
   if (!string == data[key].language){
@@ -291,12 +389,22 @@ for (const key in data){
   
  if (string == data[key].language){
      // console.log(`found ${data[key].version} for ${string}` )
-    return data[key].version
+   if(getName){
+     return data[key].language
+   } else{
+     return data[key].version
+   }
+     
  } else {
    for (const aliasName in data[key].aliases){
     if (string == data[key].aliases[aliasName]){
       // console.log(`found ${data[key].version} for ${string}` )
-         return data[key].version
+        if(getName){
+     return data[key].language
+   } else{
+     return data[key].version
+   }
+         
       
     }
       // Need to fix this and throw error
@@ -320,4 +428,59 @@ function handleclick(codeRunner){
   }
 }
 
+
+  
+
 window.customElements.define('code-runner', CodeRunner);
+
+
+
+// LEAVE THESE OUTSIDE OF THE CLASS - SO THEY CAN BE USED FOR CUSTOM PLUGINS 
+
+/// function to create Ace Editors for CodeRunner-WC
+
+
+function CreateAceCodeEditor(html_element, language){
+  
+    // url to load Ace Editor + resources
+    ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/");
+  
+  
+var text_value = html_element.querySelector("#codetorun").textContent
+  // Editor Settings (Provided by C9)
+var editor = ace.edit(html_element.querySelector("#codetorun"));
+  
+editor.$blockScrolling = Infinity;
+  
+editor.setTheme("ace/theme/monokai");
+  SetAceEditor_Mode()
+  function SetAceEditor_Mode(){
+    
+    var modelist = ace.require('ace/ext/modelist');
+if(modelist.modesByName[language] != undefined) {
+
+     editor.getSession().setMode(`ace/mode/${language}`)
+} else{
+  // language was not found
+  console.log(`Code Runner Error: Ace Editor Language Mode Could Not Be Found For ${language.charAt(0).toUpperCase() + language.slice(1)}`)
+}////
+  }
+editor.setShowPrintMargin(false);
+//editor.session.setMode(`ace/mode/${GetVersionForPistonAPI(html_element.getAttribute("language").toLowerCase(), "GETNAME")}`);
+  
+editor.setValue(text_value);
+
+
+  
+editor.clearSelection();
+/// This will set editor to content length
+
+ /// This will set editor to auto-expand 
+//editor.setOptions({
+  //  maxLines: Infinity
+// });
+editor.setOptions({
+   maxLines: Infinity
+ });
+}
+
