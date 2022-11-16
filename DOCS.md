@@ -23,6 +23,26 @@ Here is a brief example of how you can handle your own functions / implement new
 
 ```js
 
+// wait till all elements are LOADED on the page
+window.addEventListener('load', (event) => {
+    
+// Create Ace Editor(s) - for non terminal based plugins...     
+const web_compontents = document.querySelectorAll('code-runner');
+
+function Load_AceEditor_For_Your_Plugin(element){
+  // load Ace Editor with "CSS" language mode - as example... (language is NOT required)
+  CreateAceEditorForPlugin(element, "CSS")
+  }
+  
+  
+  function HandleClick_For_Your_Plugin(elemenet){
+    console.log("Your custom click event with the web component")
+  }
+
+}
+                        
+)
+
 ```
 
 To view the source code of a plugin - see here.
