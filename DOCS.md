@@ -1,12 +1,25 @@
 ## Code Editor
 
+### How to customize Code Editor / Ace Editor theme 
+
+To change the default Ace Editor theme used <code>Monokai</code> - set the variable ```CodeRunner_AceEditor_Theme``` to a valid theme name.
+
+```html
+<script>
+ let CodeRunner_AceEditor_Theme = "Dawn"
+ </script>
+ ```
+ 
+ <b>Note</b>: This will change the theme for all of the <code>code-runner</code> web-components displayed in the HTML document. 
+
+
 ### How to disable ALL Code Editor / Ace Editor
 
 To disable ALL / ANY instances of Ace Editor being loaded set the variable ```CodeRunner_DisableAceEditor``` to anything.
 
 ```html
 <script>
- let CodeRunner_DisableAceEditor= "true";
+ let CodeRunner_DisableAceEditor = "true";
 </script>
 ```
 
