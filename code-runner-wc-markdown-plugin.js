@@ -1,54 +1,14 @@
-/// needs cleaned still 
-
-/// Handle all button clicks for WC
-
-/// Handle all button clicks for WC
 
 
 
+/// wait till all Code-Runner Web-Components are loaded on page... 
 
 window.addEventListener('load', (event) => {
-///  set Ace Editor to Markdown Mode
 
-const web_compontents = document.querySelectorAll('code-runner');
-
-// set the code editor (Ace-Editor) mode to PHP -
-	// Params (html_element, lang)
-web_compontents.forEach((web_compontent) =>	 renderMarkdownEditor(web_compontent))
   
-  function renderMarkdownEditor(element){
-    
-        if (element.getAttribute("language") === "markdown" && "md"){
-      CreateAceEditorForPlugin(element, "markdown")
-      }
-  }
-
- 
-
-const web_compontents_btns = document.querySelectorAll('[code-runner-component]');
-
-web_compontents_btns.forEach((web_compontent_btn) => web_compontent_btn.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent_btn)));
-
-function handleClick(button) {
-
-     
-  
-        if (button.getAttribute("language") === "markdown" && "md"){
-      
-       renderMarkdown(button)
-      }
-  
-  
-  
-
-}
-
-
-
-
-
+  // function to render Markdown
 function renderMarkdown(html_element){
- 
+ if(CR_ShowDown_Loaded != false){
   let converter = new showdown.Converter({
     tables: true,
     simpleLineBreaks: true
@@ -59,32 +19,49 @@ function renderMarkdown(html_element){
   //ace_text-input
 
 html_element.querySelector("#output_section").innerHTML = converter.makeHtml(html_element.querySelector(".ace_content").innerText)
-  
+ }else{
+   // show error to user markdown parser was not loaded.. 
+   html_element.querySelector("#output_section").style.display = "block";
+ }
 }
 
 
-
-document.querySelectorAll("code-runner").forEach((el) => {
-  if (el.getAttribute("language").toLowerCase() === "latex") {
-  loadJavaScriptFile('https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.js')
-  }
+  // to stop parser from being loaded more than once... 
+let CR_ShowDown_Loaded = false;  
   
-    if (el.getAttribute("language").toLowerCase() === "md" || "markdown") {
-  loadJavaScriptFile('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.7/showdown.min.js')
+
+  // Plugin functions handled nicely here! 
+document.querySelectorAll("code-runner").forEach((el) => {
+  
+    if (el.getAttribute("language").toLowerCase() === "md" || el.getAttribute("language").toLowerCase() ===  "markdown") {
+    
+     // render ace editor(s) for custom plugin
+       ///  set Ace Editor to Markdown Mode
+      CreateAceEditorForPlugin(el, "markdown")
+  
+ // handle all clicks for custom plugin 
+  el.querySelector('[ code-runner-button]').addEventListener('click', (e) => renderMarkdown(el))
+      
+      // load resources needed! 
+ if(CR_ShowDown_Loaded == false){
+loadCR_Compiler_Showdown('https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.7/showdown.min.js')
+                   }
+                   
   }
     
 
 })
 
 
+  // function to load resources needed for plugin.. 
 
-function loadJavaScriptFile(url){
+function loadCR_Compiler_Showdown(url){
   
     /// Add Markdown Parser To Document
 var script = document.createElement('script');
 script.src = url;
 
-document.head.appendChild(script); //or something of the likes  
+document.head.appendChild(script); 
   
   
   
@@ -94,18 +71,29 @@ script.onerror = function () {
  
   console.error("Markdown Tag: Error while performing function LoadMarkdownParser - There was an error loading the Markdown Parser")
   
+  // handle error loading - md parser.. 
+  document.querySelectorAll("code-runner").forEach((el) => {
+  
+    if (el.getAttribute("language").toLowerCase() === "md" || el.getAttribute("language").toLowerCase() ===  "markdown") {
+      
+       	const result_section = el.querySelector("#output_section")
+        
+      	
+  //ace_text-input
+
+el.querySelector("#result").innerText = "Error: Could not load resources to run Markdown. :( "
+    }
+ })
+  
 }
 
   
   /// Markdown Parser Load Successful 
 script.onload = function () {
+ CR_ShowDown_Loaded = true
  
-  // Append this CSS
-
-// https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.css 
   
 };
 }
   
 });
-  
