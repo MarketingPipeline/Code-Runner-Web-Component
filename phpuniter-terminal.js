@@ -4,8 +4,10 @@ window.addEventListener('load', (event) => {
   // this will work in IE 10, 11 and Safari/Chrome/Firefox/Edge
 // add ES6 poly-fill for the Promise, if needed (or rewrite to use a callback)
 
+ 
 let fetchStyle = function(url) {
   return new Promise((resolve, reject) => {
+   
     let link = document.createElement('link');
     link.type = 'text/css';
     link.rel = 'stylesheet';
@@ -20,12 +22,23 @@ let fetchStyle = function(url) {
 
 async function loadPHPTerminal(){
 try {
- await fetchStyle("https://unpkg.com/jquery.terminal/css/jquery.terminal.css")//
-   await fetchStyle("https://unpkg.com/prismjs/themes/prism-coy.css")//
+  const PHP_Terminal_CSS_Files = ["https://unpkg.com/jquery.terminal/css/jquery.terminal.css", "https://unpkg.com/prismjs/themes/prism-coy.css"]
+  
+  for (const file in PHP_Terminal_CSS_Files){
+      // ensure these files aren't loaded already in DOM...
+    if (isFileAlreadyLoaded(PHP_Terminal_CSS_Files[file], "css") === false){
+            await fetchStyle(PHP_Terminal_CSS_Files[file])//
+           } // else{
+            // CSS file already loaded in document
+         //  }
+  }
+
+ 
   
   
 renderPHPTerminals()
 } catch (error) {
+  renderPHP_Plugin_Failed()
  console.log("Code Runner Error: Failed to load all resources for plugin - PHP Terminal")
   // expected output: ReferenceError: nonExistentFunction is not defined
   // Note - error messages will vary depending on browser
@@ -130,7 +143,10 @@ php.expose($, 'jQuery');
                         'https://unpkg.com/prismjs@1.8.1/prism.js', 'https://unpkg.com/jquery.terminal/js/less.js', 'https://unpkg.com/jquery.terminal/js/prism.js', 'https://unpkg.com/uniter@2.12.1/dist/uniter.js', 'https://unpkg.com/prismjs@1.8.1/components/prism-php.js'];
         let PHP_Terminal_Data = [];
         PHP_Terminal_Files.forEach(function(info) {
+        // ensure these files aren't loaded already in DOM...
+           if (isFileAlreadyLoaded(info, "script") === false){
             PHP_Terminal_Data.push(create(info));
+           }
         });
         Promise.all(PHP_Terminal_Data).then(function() {
             console.log('The required scripts are loaded successfully!');
