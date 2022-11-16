@@ -66,44 +66,18 @@ php.expose($, 'jQuery');
 
 
 
- let create = (info) => {
-            return new Promise(function(resolve, reject) {
-                let gfgData = document.createElement('script');
-                gfgData.src = info;
-                gfgData.async = false;
-                gfgData.onload = () => {
-                    resolve(info);
-                };
-                gfgData.onerror = () => {
-                    reject(info);
-                };
-
-                
-// check if any of these scripts already exist in document from user or another plugin etc...                 
-var len = document.querySelector('script[src*="${gfgData}"]'); 
-
-if (len){
-if (len.length === 0) {
-    // Script is not already in HTML Document - adding script to HTML document. 
-     document.body.appendChild(gfgData);
-}
-}
-  
-               
-            });
-        };
-        let gfgScript = ['https://code.jquery.com/jquery-3.1.1.min.js', 
+        let PHP_Terminal_Files = ['https://code.jquery.com/jquery-3.1.1.min.js', 
                          'https://cdn.terminal.jcubic.pl/wcwidth.js', 
                          'https://unpkg.com/jquery.terminal/js/jquery.terminal.js',
                         'https://unpkg.com/js-polyfills/keyboard.js',
                         'https://unpkg.com/jquery.terminal/js/unix_formatting.js',
                         'https://unpkg.com/prismjs@1.8.1/prism.js', 'https://unpkg.com/jquery.terminal/js/less.js', 'https://unpkg.com/jquery.terminal/js/prism.js', 'https://unpkg.com/uniter@2.12.1/dist/uniter.js', 'https://unpkg.com/prismjs@1.8.1/components/prism-php.js'];
-        let promiseData = [];
-        gfgScript.forEach(function(info) {
-            promiseData.push(create(info));
+        let PHP_Terminal_Data = [];
+        PHP_Terminal_Files.forEach(function(info) {
+            PHP_Terminal_Data.push(create(info));
         });
-        Promise.all(promiseData).then(function() {
-            console.log('Code Runner: The required scripts for PHP terminal are loaded successfully!');
+        Promise.all(PHP_Terminal_Data).then(function() {
+            console.log('The required scripts are loaded successfully!');
         }).catch(function(gfgData) {
-            console.log('Code Runner:' + gfgData + ' failed to load!');
+            console.log(gfgData + ' failed to load!');
         });
