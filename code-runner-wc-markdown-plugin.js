@@ -1,3 +1,4 @@
+/// needs cleaned still 
 
 /// Handle all button clicks for WC
 
@@ -11,28 +12,33 @@ const web_compontents = document.querySelectorAll('code-runner');
 
 // set the code editor (Ace-Editor) mode to PHP -
 	// Params (html_element, lang)
-web_compontents.forEach((web_compontent) =>	 CreateAceEditorForPlugin(web_compontent, "css"))
+web_compontents.forEach((web_compontent) =>	 renderMarkdownEditor(web_compontent))
   
-});
+  function renderMarkdownEditor(element){
+    
+        if (element.getAttribute("language") === "markdown" && "md"){
+      
+      CreateAceEditorForPlugin(element, "css")
+      }
+  }
 
  
 
-const web_compontents = document.querySelectorAll('[code-runner-component]');
+const web_compontents_btns = document.querySelectorAll('[code-runner-component]');
 
-web_compontents.forEach((web_compontent) => web_compontent.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent)));
+web_compontents_btns.forEach((web_compontent_btn) => web_compontent_btn.querySelector('[ code-runner-button]').addEventListener('click', (e) => handleClick(web_compontent_btn)));
 
 function handleClick(button) {
-if (button.getAttribute("language").toLowerCase() === "latex" || "markdown" || "md"){
-      if (button.getAttribute("language") === "latex"){
-        renderLatex(button)
-      }
+
+     
   
-        if (button.getAttribute("language") === "markdown" || "md"){
+        if (button.getAttribute("language") === "markdown" && "md"){
+      
        renderMarkdown(button)
       }
   
   
-    }
+  
 
 }
 
@@ -46,10 +52,12 @@ function renderMarkdown(html_element){
     tables: true,
     simpleLineBreaks: true
   })
-      console.log(html_element.querySelector("#codetorun").innerHTML)
+     // console.log(html_element.querySelector("#codetorun").innerHTML)
   	const result_section = html_element.querySelector("#output_section")
 	result_section.style.display = "block";
-html_element.querySelector("#output_section").innerHTML = converter.makeHtml(html_element.querySelector("#codetorun").innerText)
+  //ace_text-input
+
+html_element.querySelector("#output_section").innerHTML = converter.makeHtml(html_element.querySelector(".ace_content").innerText)
   
 }
 
@@ -97,4 +105,6 @@ script.onload = function () {
   
 };
 }
-
+  
+});
+  
