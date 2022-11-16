@@ -403,7 +403,10 @@ function handleclick(codeRunner){
    
 
 let isAceLoadedAlready = false
-async function loadAceEditor(){ 
+async function loadAceEditor(){
+ // any variable will disable all ace editors on page 
+    // example - let CodeRunner_DisableAceEditor= "true";
+  if (typeof CodeRunner_DisableAceEditor == "undefined"){
         if(isAceLoadedAlready === false){
           
         gfgScript.forEach(function(info) {
@@ -421,6 +424,8 @@ async function loadAceEditor(){
       } else{
         // Ace Editor has already been loaded to page
       }
+    
+    }
    }
 
 
