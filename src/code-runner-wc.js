@@ -207,50 +207,6 @@ class CodeRunner extends HTMLElement {
   
     
    
-     let  loadedFiles = false;
-    let create = (info) => {
-            return new Promise(function(resolve, reject) {
-                let gfgData = document.createElement('script');
-                gfgData.src = info;
-                gfgData.async = false;
-                gfgData.onload = () => {
-                    resolve(info);
-                };
-                gfgData.onerror = () => {
-                    reject(info);
-                };
-                document.body.appendChild(gfgData);
-            });
-        };
-        let gfgScript = ['https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ace.min.js', 'https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ext-modelist.js']  
-        let promiseData = [];
-    
-   
-// function to load Ace Editor to page 
-
-let isAceLoadedAlready = false
-async function loadAceEditor(){ 
-        if(isAceLoadedAlready === false){
-          
-        gfgScript.forEach(function(info) {
-            promiseData.push(create(info));
-        });
-       const data = await Promise.all(promiseData).then(async function() {
-       return {loaded: "true"}
-        }).catch(function(gfgData) {
-         isAceLoadedAlready  = true
-         return {loaded: "false"}
-         console.log(gfgData + ' failed to load!');
-        });
-    
-      return data
-      } else{
-        // Ace Editor has already been loaded to page
-      }
-   }
-
-
-   
      
 // if WC is using Piston API
 if(!this.hasAttribute("custom-compiler")){
@@ -292,18 +248,6 @@ See the repo if there is any plugins that support "${this.getAttribute("language
 } else{
 // Code Runner WC - is NOT using Piston API & a plugin has been loaded. 	
   
-// make sure the editor is only set for non-terminal. 
-  if (!this.getAttribute("custom-compiler").includes("shell") && !this.getAttribute("custom-compiler").includes("terminal")){
-   // load ace editor for custom compiler plugin
-    async function AceEditorForPistonAPI(element){
-       // Wait till AceEditor is loaded - so no errors occur.
-       let isAceLoaded = await loadAceEditor()
-   if (isAceLoaded.loaded === "true"){
-  CreateAceCodeEditor(element, element.getAttribute("language").toLowerCase())//
-   }    
-  }
-    AceEditorForPistonAPI(this)
-  }
 }
     
     
@@ -432,6 +376,56 @@ function handleclick(codeRunner){
 }
 
 
+
+
+// function to load Ace Editor to page 
+
+
+     let  loadedFiles = false;
+    let create = (info) => {
+            return new Promise(function(resolve, reject) {
+                let gfgData = document.createElement('script');
+                gfgData.src = info;
+                gfgData.async = false;
+                gfgData.onload = () => {
+                    resolve(info);
+                };
+                gfgData.onerror = () => {
+                    reject(info);
+                };
+                document.body.appendChild(gfgData);
+            });
+        };
+        let gfgScript = ['https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ace.min.js', 'https://cdn.jsdelivr.net/npm/ace-min-noconflict@1.1.9/ext-modelist.js']  
+        let promiseData = [];
+    
+  
+   
+
+let isAceLoadedAlready = false
+async function loadAceEditor(){ 
+        if(isAceLoadedAlready === false){
+          
+        gfgScript.forEach(function(info) {
+            promiseData.push(create(info));
+        });
+       const data = await Promise.all(promiseData).then(async function() {
+       return {loaded: "true"}
+        }).catch(function(gfgData) {
+         isAceLoadedAlready  = true
+         return {loaded: "false"}
+         console.log(gfgData + ' failed to load!');
+        });
+    
+      return data
+      } else{
+        // Ace Editor has already been loaded to page
+      }
+   }
+
+
+
+
 /// function to create Ace Editors for CodeRunner-WC
 
 function CreateAceCodeEditor(html_element, language){
@@ -447,10 +441,12 @@ var editor = ace.edit(html_element.querySelector("#codetorun"));
 editor.$blockScrolling = Infinity;
   
 editor.setTheme("ace/theme/monokai");
+ if (language){
   SetAceEditor_Mode()
+ }
   function SetAceEditor_Mode(){
     
-    var modelist = ace.require('ace/ext/modelist');
+    let modelist = ace.require('ace/ext/modelist');
 if(modelist.modesByName[language] != undefined) {
 
      editor.getSession().setMode(`ace/mode/${language}`)
@@ -478,5 +474,23 @@ editor.setOptions({
  });
 }
   
+
+async function CreateAceEditorForPlugin(element, language){
+
+// make sure the editor is only set for non-terminal. 
+  if (!element.getAttribute("custom-compiler").includes("shell") && !element.getAttribute("custom-compiler").includes("terminal")){
+   // load ace editor for custom compiler plugin
+   // Wait till AceEditor is loaded - so no errors occur.
+   
+   let isAceLoaded = await loadAceEditor()
+   if (isAceLoaded.loaded === "true"){
+   
+  CreateAceCodeEditor(element, language)//
+   }    
+    
+  }
+   
+  }
+
 
 window.customElements.define('code-runner', CodeRunner);
