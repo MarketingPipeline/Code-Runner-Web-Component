@@ -2,6 +2,8 @@
 
 /// Handle all button clicks for WC
 
+/// Handle all button clicks for WC
+
 
 
 
@@ -17,8 +19,7 @@ web_compontents.forEach((web_compontent) =>	 renderMarkdownEditor(web_compontent
   function renderMarkdownEditor(element){
     
         if (element.getAttribute("language") === "markdown" && "md"){
-      
-      CreateAceEditorForPlugin(element, "css")
+      CreateAceEditorForPlugin(element, "markdown")
       }
   }
 
