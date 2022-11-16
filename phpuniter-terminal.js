@@ -1,6 +1,65 @@
+
 window.addEventListener('load', (event) => {
     
+  // this will work in IE 10, 11 and Safari/Chrome/Firefox/Edge
+// add ES6 poly-fill for the Promise, if needed (or rewrite to use a callback)
+
+let fetchStyle = function(url) {
+  return new Promise((resolve, reject) => {
+    let link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.onload = () => resolve();
+    link.onerror = () => reject();
+    link.href = url;
+
+    let headScript = document.querySelector('script');
+    headScript.parentNode.insertBefore(link, headScript);
+  });
+};
+
+async function loadPHPTerminal(){
+try {
+ await fetchStyle("https://unpkg.com/jquery.terminal/css/jquery.terminal.css")//
+   await fetchStyle("https://unpkg.com/prismjs/themes/prism-coy.css")//
+  
+  
+renderPHPTerminals()
+} catch (error) {
+ console.log("Code Runner Error: Failed to load all resources for plugin - PHP Terminal")
+  // expected output: ReferenceError: nonExistentFunction is not defined
+  // Note - error messages will vary depending on browser
+}
+}
+ 
+  loadPHPTerminal()
+
+                  
+});   
+
+
 const web_compontents = document.querySelectorAll('code-runner');
+
+function renderPHP_Plugin_Failed(){
+  
+  web_compontents.forEach((web_compontent) => PHP_TermLoadError(web_compontent)); 
+  
+  function PHP_TermLoadError(element){
+     if (element.hasAttribute("custom-compiler") === true){
+       
+         if (element.getAttribute("custom-compiler") == "python-shell"){
+ element.querySelector("#codetorun").innerHTML = "Error: Code Runner Failed To Load Resources For PHP Shell / Terminal"
+  }
+     }
+    
+  }
+  
+}
+
+
+function renderPHPTerminals(){
+    
+
 
 web_compontents.forEach((web_compontent) => t(web_compontent));    
 
@@ -61,10 +120,7 @@ php.expose($, 'jQuery');
      }
    
     
-                  
-});   
-
-
+}
 
         let PHP_Terminal_Files = ['https://code.jquery.com/jquery-3.1.1.min.js', 
                          'https://cdn.terminal.jcubic.pl/wcwidth.js', 
