@@ -1,3 +1,12 @@
+/**!
+ * @license Code-Runner-Web-Component - a web component to run / compile code in the browser! 
+ * PLUGIN-NAME: UNITER-TERMINAL
+ * DESCRIPTION:
+ * PLUGIN-VERSION: 1.0.0
+ * MORE INFO CAN BE FOUND AT https://github.com/MarketingPipeline/Scriptor.js/
+ */
+
+
 
  function isFileAlreadyLoaded(url, type) {
     if (!url) url = "http://xxx.co.uk/xxx/script.js";
