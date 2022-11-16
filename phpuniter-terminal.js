@@ -1,4 +1,22 @@
 
+ function isFileAlreadyLoaded(url, type) {
+    if (!url) url = "http://xxx.co.uk/xxx/script.js";
+         if(type == "css"){
+          type = "link" 
+         }
+    var scripts = document.getElementsByTagName(type);
+
+    for (var i = scripts.length; i--;) {
+        if(type == "link"){
+           if (scripts[i].href == url) return true;
+        } else{
+          if (scripts[i].src == url) return true;
+        }
+    }
+    return false;
+}
+  
+
 window.addEventListener('load', (event) => {
     
   // this will work in IE 10, 11 and Safari/Chrome/Firefox/Edge
@@ -38,6 +56,7 @@ try {
   
 renderPHPTerminals()
 } catch (error) {
+
   renderPHP_Plugin_Failed()
  console.log("Code Runner Error: Failed to load all resources for plugin - PHP Terminal")
   // expected output: ReferenceError: nonExistentFunction is not defined
@@ -47,8 +66,7 @@ renderPHPTerminals()
  
   loadPHPTerminal()
 
-                  
-});   
+
 
 
 const web_compontents = document.querySelectorAll('code-runner');
@@ -87,10 +105,14 @@ web_compontents.forEach((web_compontent) => t(web_compontent));
    
 
    // clear text from html 
-   b.querySelector("#codetorun").innerHTML = ""
+   b.querySelector("#codetorun").innerHTML = "";
+           // hide elements that are not needed
    b.querySelector("#codetorun").className = '';
-     
-     
+   b.querySelector('[code-runner-button]').style.display = "none";
+    
+  b.querySelector('[code-runner-button]').style.display = "none";
+           
+ b.querySelector('[code-runner-copy-button]').style.display = "none";
      b.querySelector('.code-knack-title').innerHTML = "PHP Shell" 
      b.querySelector("#codetorun").removeAttribute("contenteditable")
      
@@ -135,7 +157,8 @@ php.expose($, 'jQuery');
     
 }
 
-        let PHP_Terminal_Files = ['https://code.jquery.com/jquery-3.1.1.min.js', 
+  
+       let PHP_Terminal_Files = ['https://code.jquery.com/jquery-3.1.1.min.js', 
                          'https://cdn.terminal.jcubic.pl/wcwidth.js', 
                          'https://unpkg.com/jquery.terminal/js/jquery.terminal.js',
                         'https://unpkg.com/js-polyfills/keyboard.js',
@@ -153,3 +176,6 @@ php.expose($, 'jQuery');
         }).catch(function(gfgData) {
             console.log(gfgData + ' failed to load!');
         });
+  
+}); 
+   
