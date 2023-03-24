@@ -1,11 +1,20 @@
-<html><head><link rel="stylesheet" href="https://unpkg.com/@primer/css/dist/primer.css">
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Code Runner Web Component | Run high level code on your website</title>
 
-.markdown-body h2{
-border-bottom:none;
-}  
-</style>
-<script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component@main/dist/code-runner-wc.min.js" defer></script>
+<link rel="stylesheet" href="https://unpkg.com/@primer/css/dist/primer.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/github.min.css">
+  
+<meta name="author" content="github.com/marketingpipeline">
+<meta name="description" content="A free web component to compile high level code on your website">
+<meta name="keywords" content="code compiler, compile code, run code, coding example, programming example, online code compiler">
+ 
+<meta property="og:title" content="Code Runner Web Component" />
+<meta property="og:description" content="A free web component to compile high level code on your website" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Code-Runner-Web-Component@main/dist/code-runner-wc.min.js" defer></script>
   
   <script>
     // THIS IS JUST TO CHANGE THE CODE RUNNER ON SELECT MENU CLICKS... 
@@ -22,40 +31,44 @@ changeCodeRunnerDemo.outerHTML = `<code-runner id="change_demo" language="${text
 });    
     
 
-  </script>    
-  
-  </head><body><div class="color-bg-canvas-inset pb-6">
+  </script>  
+</head>
+<div class="color-bg-canvas-inset pb-6">
   <header class="container-lg mx-auto p-responsive d-flex flex-items-center flex-wrap flex-md-nowrap pt-3 pb-6">
-   
-
-<div class="container-lg mx-auto py-6 p-responsive">
-
-      <h1>Code Runner Web Component</h1>
-      <p>A web component that allows you to run high level programming languages on your website via the public <a href="https://github.com/engineer-man/piston#Public-API">Piston API</a> </p>
-      <p>A web component made by <a href="https://github.com/MarketingPipeline">@MarketingPipeline</a>. Source code is available on <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component">GitHub</a>. License can be found <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component/blob/main/LICENSE">here</a>.</p>
-
-  <hr>
+    <div>
+      <a class="text-white mr-3" href="https://github.com/MarketingPipeline/Termino.js/blob/master/">GitHub</a>
+      <a class="text-white mr-3" href="https://www.jsdelivr.com/package/gh/MarketingPipeline/Code-Runner-Web-Component">CDN</a>
+    </div>
+  </header>
+    <div class="container-lg mx-auto text-white py-6 p-responsive">
+    <h1 class="f00-light">Code Runner Web Component</h1>
+    <p class="f3 mb-4">A web component that allows you to compile high level programming languages on your website via the public <a href="https://github.com/engineer-man/piston#Public-API">Piston API</a>  </p>
+ 
+     <p>A web component made by <a href="https://github.com/MarketingPipeline">@MarketingPipeline</a>. Source code is available on <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component">GitHub</a>. License can be found <a href="https://github.com/MarketingPipeline/Code-Runner-Web-Component/blob/main/LICENSE">here</a>.</p>
   
+</div>
+<div class="container-lg mx-auto py-6 p-responsive">
   <div class="markdown-body">
-   <h2 id="exampleandusage">Examples</h2>
-     <blockquote>Note: You can click and edit the code examples!</blockquote>
-    
-
-    
-      <h3>Pre-defined Code</h3>
-    
-    <code-runner language="Python">print('hello world')</code-runner>
-    
-      <h3>Undefined Code</h3>
-   
-    <p> Change the language to run!     <select id="options_menu">
+    <h1>Demo(s)</h1>  <ul class="f3 py-4">
+      <li>This is a live example of the web component for more info on usage visit the <a href="https://github.com/MarketingPipeline">repo</a>!</li>
+    </ul>
+  </div>
+  <br>
+  <center><h3>Pre-defined Code</h3></center>
+   <code-runner language="Python">print('hello world')</code-runner>
+    <center><h3>Undefined Code</h3></center>
+  
+      <p> Change the language to run!     <select id="options_menu">
  <option value="awk">awk</option> <option value="bash">bash</option> <option value="befunge93">befunge93</option> <option value="brachylog">brachylog</option> <option value="brainfuck">brainfuck</option> <option value="bqn">bqn</option> <option value="c">c</option> <option value="c++">c++</option> <option value="cjam">cjam</option> <option value="clojure">clojure</option> <option value="cobol">cobol</option> <option value="coffeescript">coffeescript</option> <option value="cow">cow</option> <option value="crystal">crystal</option> <option value="csharp">csharp</option> <option value="csharp.net">csharp.net</option> <option value="d">d</option> <option value="dart">dart</option> <option value="dash">dash</option> <option value="dragon">dragon</option> <option value="elixir">elixir</option> <option value="emacs">emacs</option> <option value="emojicode">emojicode</option> <option value="erlang">erlang</option> <option value="file">file</option> <option value="forte">forte</option> <option value="forth">forth</option> <option value="fortran">fortran</option> <option value="freebasic">freebasic</option> <option value="fsharp.net">fsharp.net</option> <option value="fsi">fsi</option> <option value="go">go</option> <option value="golfscript">golfscript</option> <option value="groovy">groovy</option> <option value="haskell">haskell</option> <option value="husk">husk</option> <option value="iverilog">iverilog</option> <option value="japt">japt</option> <option value="java">java</option> <option value="javascript">javascript</option> <option value="jelly">jelly</option> <option value="julia">julia</option> <option value="kotlin">kotlin</option> <option value="lisp">lisp</option> <option value="llvm_ir">llvm_ir</option> <option value="lolcode">lolcode</option> <option value="lua">lua</option> <option value="matl">matl</option> <option value="nasm">nasm</option> <option value="nasm64">nasm64</option> <option value="nim">nim</option> <option value="ocaml">ocaml</option> <option value="octave">octave</option> <option value="osabie">osabie</option> <option value="paradoc">paradoc</option> <option value="pascal">pascal</option> <option value="perl">perl</option> <option value="php">php</option> <option value="ponylang">ponylang</option> <option value="powershell">powershell</option> <option value="prolog">prolog</option> <option value="pure">pure</option> <option value="pyth">pyth</option> <option value="python" selected>python</option> <option value="python2">python2</option> <option value="racket">racket</option> <option value="raku">raku</option> <option value="retina">retina</option> <option value="rockstar">rockstar</option> <option value="rscript">rscript</option> <option value="ruby">ruby</option> <option value="rust">rust</option> <option value="scala">scala</option> <option value="smalltalk">smalltalk</option> <option value="sqlite3">sqlite3</option> <option value="swift">swift</option> <option value="typescript">typescript</option> <option value="basic">basic</option> <option value="basic.net">basic.net</option> <option value="vlang">vlang</option> <option value="vyxal">vyxal</option> <option value="yeethon">yeethon</option> <option value="zig">zig</option></select></p>
     
     <code-runner id="change_demo" language="Python"></code-runner>
+
+
     
-  </div>
 </div>
 
-
-
-</header></div></body></html>
+<footer>
+  <hr>
+  <center><p>Code Runner Web Component was originally created by Jared Van Valkengoed at <br> <a href="https://github.com/MarketingPipeline">MarketingPipeline</a></p></center>
+  </footer>
+	</html>
