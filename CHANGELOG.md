@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - (June 30, 2023)
+
+This release of the Code Runner Web Component addresses solves a small but major bug fix that was not caught in the last version -
+
+- Solves shared state variable [issue](https://github.com/MarketingPipeline/Code-Runner-Web-Component/issues/6#issue-1698796306)
+
+
 ## [1.0.4] - (May 3, 2023)
 
 This release of the Code Runner Web Component has the following changes which includes bug fixes from the previous version - 
@@ -51,6 +58,7 @@ Initial Release.
 These Markdown anchors provide a link to the diff for each release. They should be
 updated any time a new release is cut.
 -->
+[1.0.5]: /v1.0.5
 [1.0.4]: /v1.0.4
 [1.0.3]: /v1.0.3
 [1.0.2]: /v1.0.2
