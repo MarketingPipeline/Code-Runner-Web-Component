@@ -135,6 +135,8 @@ class CodeRunner extends HTMLElement {
 	 font-size: 14px;
 	 overflow: auto;
 	 white-space: pre-wrap;
+         margin: 5px 0px;
+         margin-top: unset;
 }
  .code-knack-playground .code-knack-output.html-output .code-knack-output-content {
 	 max-width: 100% !important;
@@ -143,6 +145,7 @@ class CodeRunner extends HTMLElement {
 	 color: #000;
 	 border-radius: 3px;
 	 border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  
 }
  .code-knack-playground .code-knack-output.html-output .code-knack-output-content .katex .base {
 	 margin: 10px 0;
